@@ -5,6 +5,14 @@ export interface PlayerProps {
 }
 
 export interface GameBoardProps {
-  onSelectSquare: () => void;
-  activePlayerSymbol: string;
+  onSelectSquare: (row: number, col: number) => void;
+  turns: Turn[];
+}
+
+export interface Turn {
+  square: {
+    row: number;
+    col: number;
+  };
+  player: "X" | "O";
 }
