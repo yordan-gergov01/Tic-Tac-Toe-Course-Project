@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PlayerProps } from "../../types/interfaces";
 
-function Player({ playerName, symbol }: PlayerProps) {
+function Player({ playerName, symbol, isActive }: PlayerProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newName, setNewName] = useState(playerName);
 
@@ -16,7 +16,7 @@ function Player({ playerName, symbol }: PlayerProps) {
   }
 
   return (
-    <li>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {!isEditing ? (
           <span className="player-name">{newName}</span>
