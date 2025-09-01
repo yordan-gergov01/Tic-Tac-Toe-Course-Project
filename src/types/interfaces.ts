@@ -16,3 +16,7 @@ export interface Turn {
   };
   player: "X" | "O";
 }
+
+export interface LogProps {
+  turns: Turn[];
+}
