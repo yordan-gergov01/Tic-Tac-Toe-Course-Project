@@ -5,22 +5,16 @@ import GameBoard from "./features/game/GameBoard";
 import Log from "./features/game/Log";
 
 import { Turn } from "./types/interfaces";
+import { deriveActivePlayer } from "./helpers/deriveActivePlayer";
 
 function App() {
   const [gameTurns, setGameTurns] = useState<Turn[]>([]);
-  const [activePlayer, setActivePlayer] = useState<string>("X");
+
+  const activePlayer = deriveActivePlayer(gameTurns);
 
   function handleSelectSquare(rowIndex: number, colIndex: number) {
-    // change the current active player
-    setActivePlayer((currActivePlayer) =>
-      currActivePlayer === "X" ? "O" : "X"
-    );
     setGameTurns((prevTurns) => {
-      let currentPlayer: "X" | "O" = "X";
-
-      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
-        currentPlayer = "O";
-      }
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
