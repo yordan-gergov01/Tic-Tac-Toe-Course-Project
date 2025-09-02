@@ -1,3 +1,5 @@
+import { PlayerSymbol } from "./types";
+
 export interface PlayerProps {
   playerName: string;
   symbol: string;
@@ -6,7 +8,7 @@ export interface PlayerProps {
 
 export interface GameBoardProps {
   onSelectSquare: (row: number, col: number) => void;
-  turns: Turn[];
+  board: PlayerSymbol[][];
 }
 
 export interface Turn {
