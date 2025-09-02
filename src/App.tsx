@@ -6,16 +6,10 @@ import Log from "./features/game/Log";
 import GameOver from "./features/game/GameOver";
 
 import { Turn } from "./types/interfaces";
+
 import { deriveActivePlayer } from "./helpers/deriveActivePlayer";
-import { PlayerSymbol } from "./types/types";
-
-import { WINNING_COMBINATIONS } from "./features/game/winning-combinations";
-
-const initialGameBoard: PlayerSymbol[][] = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+import { deriveGameWinner } from "./helpers/deriveGameWinner";
+import { deriveGameBoard } from "./helpers/deriveGameBoard";
 
 function App() {
   const [players, setPlayers] = useState({
@@ -25,36 +19,8 @@ function App() {
   const [gameTurns, setGameTurns] = useState<Turn[]>([]);
 
   const activePlayer = deriveActivePlayer(gameTurns);
-
-  // we create a deep array copy to correctly set the updated game board
-  let gameBoard = [...initialGameBoard.map((array) => [...array])];
-
-  for (const turn of gameTurns) {
-    const { square, player } = turn;
-    const { row, col } = square;
-
-    gameBoard[row][col] = player;
-  }
-
-  let winner: PlayerSymbol | string = null;
-
-  for (const combination of WINNING_COMBINATIONS) {
-    const firstSquareSymbol =
-      gameBoard[combination[0].row][combination[0].column];
-    const secondSquareSymbol =
-      gameBoard[combination[1].row][combination[1].column];
-    const thirdSquareSymbol =
-      gameBoard[combination[2].row][combination[2].column];
-
-    if (
-      firstSquareSymbol &&
-      firstSquareSymbol === secondSquareSymbol &&
-      firstSquareSymbol === thirdSquareSymbol
-    ) {
-      winner = players[firstSquareSymbol];
-    }
-  }
-
+  const gameBoard = deriveGameBoard(gameTurns);
+  const winner = deriveGameWinner(GameBoard, players) ?? null;
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex: number, colIndex: number) {
