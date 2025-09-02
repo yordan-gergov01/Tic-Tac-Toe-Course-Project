@@ -8,6 +8,7 @@ export interface PlayerProps {
 
 export interface GameOverProps {
   winner: PlayerSymbol | null;
+  onRestart: () => void;
 }
 
 export interface GameBoardProps {
