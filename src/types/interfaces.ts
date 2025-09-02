@@ -6,6 +6,10 @@ export interface PlayerProps {
   isActive: boolean;
 }
 
+export interface GameOverProps {
+  winner: PlayerSymbol | null;
+}
+
 export interface GameBoardProps {
   onSelectSquare: (row: number, col: number) => void;
   board: PlayerSymbol[][];
