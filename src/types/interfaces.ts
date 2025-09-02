@@ -4,10 +4,11 @@ export interface PlayerProps {
   playerName: string;
   symbol: string;
   isActive: boolean;
+  onChangeName: (symbol: string, newName: string) => void;
 }
 
 export interface GameOverProps {
-  winner: PlayerSymbol | null;
+  winner: PlayerSymbol | string | null;
   onRestart: () => void;
 }
 
